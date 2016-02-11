@@ -25,17 +25,14 @@ build/Release
 
 # Dependency directory
 node_modules
-<<<<<<< HEAD
 app/lib
-=======
->>>>>>> 34af9d489b11b7b57f548242e476c9fe5ca59493
+
+
 
 # Optional npm cache directory
 .npm
 
 # Optional REPL history
 .node_repl_history
-<<<<<<< HEAD
 
-=======
->>>>>>> 34af9d489b11b7b57f548242e476c9fe5ca59493
+
