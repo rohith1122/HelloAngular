@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "JSONStream": "^1.0.7",
+    "dateformat": "^1.0.12",
     "express": "^4.13.4",
     "jsonfile": "^2.2.3",
     "twitter": "^1.2.5"
