@@ -11,25 +11,39 @@ var analyze = require('Sentimental').analyze,
 
 var dateFormat = require('dateformat');
 
-module.exports = function(searchfeed,date,max_id,count,id){
-            
-        var client = new Twitter({
-        consumer_key: '0yNzQJlT8E5wDJtfX1jMwT6Xa',
-        consumer_secret: 'ChB39V1ptkXJyiH01XTzqPLh3Gy8zbuatpO7uEvqedbRgk9nn8',
+var MyTwitterSearch = {
+
+   getJson : function(searchfeed,date,since_id,max_id,count,id,callback){
+    
+     var client = new Twitter({
+        consumer_key: 'aLLh1R1Ve6PHQ3FBXUfLDspwN',
+        consumer_secret: 'fgSC77rbhNooghaXGWU9MJm6aORNxFkzxCALLNyyIRiXSLh1eG',
         access_token_key: '',
         access_token_secret: ''
         });
-        var params = {q: searchfeed,until :date,max_id:max_id,count :count};
+        var params = {q: searchfeed,since_id:since_id, count :count};
         var obj;
         client.get('search/tweets', params, function(error, tweets, response){
+            if (error){
+                console.log(error);
+            }
         if (!error) {
             fs.writeFile('./output/' + searchfeed + '_' + id + '.json', JSON.stringify(tweets),function(error){
+             
+             if (error)
+               callback('error');   
+                
             });
-            fs.readFile('./output/' + searchfeed + '_' + id + '.json', 'utf8', function (err, data) {
-            if (err) throw err;
-            obj = JSON.parse(data);
-            
-                var writer = csv({ 
+          
+             callback('result');
+        }
+        });
+   
+    
+},
+
+writeCsv : function(obj,searchfeed,id){
+    var writer = csv({ 
                     headers: [
                         "LanguageCode",
                         "CreatedAt",
@@ -77,11 +91,13 @@ module.exports = function(searchfeed,date,max_id,count,id){
                         );
             });
             writer.end()
-            });
-        }
-        });
-   
+    
+    
+    
 }
+}
+module.exports = MyTwitterSearch;
+
 
 
 
